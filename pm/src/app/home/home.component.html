@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <!-- Barra di ricerca -->
+  <div class="mb-3 row">
+    <div class="col-md-4">
+      <select class="form-select" [(ngModel)]="selectedField">
+        <option value="name">Name</option>
+        <option value="surname">Surname</option>
+        <option value="address">Address</option>
+        <option value="country">Country</option>
+        <option value="city">City</option>
+        <option value="province">Province</option>
+        <option value="email">Email</option>
+        <option value="note">Note</option>
+      </select>
+    </div>
+    <div class="col-md-8">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search..."
+        [(ngModel)]="searchTerm"
+        (input)="applyFilterAndSort()" />
+    </div>
+  </div>
+
+  <!-- Tabella -->
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="bg-success text-white">
+        <tr>
+          <th (click)="sortData('id')">ID</th>
+          <th (click)="sortData('name')">Name</th>
+          <th (click)="sortData('surname')">Surname</th>
+          <th (click)="sortData('address')">Address</th>
+          <th (click)="sortData('country')">Country</th>
+          <th (click)="sortData('city')">City</th>
+          <th (click)="sortData('province')">Province</th>
+          <th (click)="sortData('email')">Email</th>
+          <th (click)="sortData('note')">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let person of filteredAndSortedPeople">
+          <td>{{ person.id }}</td>
+          <td>{{ person.name }}</td>
+          <td>{{ person.surname }}</td>
+          <td>{{ person.address }}</td>
+          <td>{{ person.country }}</td>
+          <td>{{ person.city }}</td>
+          <td>{{ person.province }}</td>
+          <td>{{ person.email }}</td>
+          <td>{{ person.note }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
