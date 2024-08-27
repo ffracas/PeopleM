@@ -59,4 +59,13 @@ export class HomeComponent implements OnInit {
       return this.sortAscending ? comparison : -comparison;
     });
   }
+
+  editPerson(person: Person) {
+    console.log('Editing person:', person);
+  }
+
+  deletePerson(id: number) {
+    this.filteredAndSortedPeople = this.filteredAndSortedPeople.filter(person => person.id !== id);
+    console.log('Deleted person with id:', id);
+  }
 }
