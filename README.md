@@ -20,6 +20,7 @@ Applicativo gestione/invio dati personali: si tratta di una piccola webapp che c
 -   Provincia
 -   Email*
 -   Note
+
 *Dati obbligatori
  
  Entrando nell’applicazione, la pagina deve visualizzare un elenco con Nome, Cognome, Comune ed Email dei clienti.

@@ -2,7 +2,7 @@
   <!-- Barra di ricerca e selezione campo -->
   <div class="mb-3 row">
     <div class="col-md-4">
-      <select class="form-select" [(ngModel)]="selectedField">
+      <select class="form-select" [(ngModel)]="selectedField" (change)="applyFilterAndSort()">
         <option value="name">Name</option>
         <option value="surname">Surname</option>
         <option value="address">Address</option>
@@ -10,7 +10,6 @@
         <option value="city">City</option>
         <option value="province">Province</option>
         <option value="email">Email</option>
-        <option value="note">Note</option>
       </select>
     </div>
     <div class="col-md-8">
@@ -23,34 +22,33 @@
     </div>
   </div>
 
-  <!-- Tabella scrollabile -->
-  <div class="table-responsive">
+  <div *ngIf="filteredAndSortedPeople && filteredAndSortedPeople.length > 0; else noContacts" class="table-responsive">
     <table class="table table-striped table-bordered">
       <thead class="bg-success text-white">
         <tr>
-          <th (click)="sortData('id')">ID</th>
-          <th (click)="sortData('name')">Name</th>
-          <th (click)="sortData('surname')">Surname</th>
-          <th (click)="sortData('address')">Address</th>
-          <th (click)="sortData('country')">Country</th>
-          <th (click)="sortData('city')">City</th>
-          <th (click)="sortData('province')">Province</th>
-          <th (click)="sortData('email')">Email</th>
-          <th (click)="sortData('note')">Note</th>
+          <th (click)="sortData('id')">       ID          </th>
+          <th (click)="sortData('name')">     Name        </th>
+          <th (click)="sortData('surname')">  Surname     </th>
+          <th (click)="sortData('address')">  Address     </th>
+          <th (click)="sortData('country')">  Country     </th>
+          <th (click)="sortData('city')">     City        </th>
+          <th (click)="sortData('province')"> Province    </th>
+          <th (click)="sortData('email')">    Email       </th>
+          <th (click)="sortData('note')">     Note        </th>
           <th>Actions</th> <!-- Nuova colonna per i bottoni -->
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let person of filteredAndSortedPeople">
-          <td>{{ person.id }}</td>
-          <td>{{ person.name }}</td>
-          <td>{{ person.surname }}</td>
-          <td>{{ person.address }}</td>
-          <td>{{ person.country }}</td>
-          <td>{{ person.city }}</td>
-          <td>{{ person.province }}</td>
-          <td>{{ person.email }}</td>
-          <td>{{ person.note }}</td>
+        <tr *ngFor="let person of filteredAndSortedPeople" [id]="'person-' + person.id">
+          <td>  {{ person.id }}       </td>
+          <td>  {{ person.name }}     </td>
+          <td>  {{ person.surname }}  </td>
+          <td>  {{ person.address }}  </td>
+          <td>  {{ person.country }}  </td>
+          <td>  {{ person.city }}     </td>
+          <td>  {{ person.province }} </td>
+          <td>  {{ person.email }}    </td>
+          <td>  {{ person.note }}     </td>
           <td>
             <button class="btn btn-warning btn-sm" (click)="editPerson(person)">Edit</button>
             <button class="btn btn-danger btn-sm" (click)="deletePerson(person.id)">Delete</button>
@@ -58,5 +56,18 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Template per "No contatti" -->
+  <ng-template #noContacts>
+    <div class="alert alert-warning text-center" role="alert">
+      Nessun contatto
+    </div>
+  </ng-template>
+
+  <!-- Bottoni per aggiungere, inviare -->
+  <div class="d-flex justify-content-end mt-4">
+    <button class="btn btn-success me-2" (click)="addPerson()">ADD PERSON</button>
+    <button class="btn btn-primary" (click)="submit()">SEND CONTACT</button>
   </div>
 </div>
